@@ -11,7 +11,12 @@
             [reloaded.repl :refer [system init start stop go reset]]))
 
 (defn new-system []
-  (load-system (keep io/resource ["gallifury/system.edn" "dev.edn" "local.edn"])))
+  (let [system (load-system
+                (keep io/resource ["gallifury/system.edn"
+                                   "dev.edn"
+                                   "local.edn"]))]
+    (println "starting server on port"(:port (:http system)))
+    system))
 
 (when (io/resource "local.clj")
   (load "local"))
