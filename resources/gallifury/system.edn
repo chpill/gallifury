@@ -1,5 +1,6 @@
 {:components {:app  duct.component.handler/handler-component
-              :http ring.component.jetty/jetty-server}
+              :http ring.component.jetty/jetty-server
+              :datomic gallifury.component.datomic/datomic}
 
  :endpoints {:example gallifury.endpoint.example/example-endpoint}
 
@@ -37,4 +38,5 @@
                   :absolute-redirects     true
                   :content-types          true
                   :default-charset        "utf-8"}}}}}
-  :http {:port http-port}}}
+  :http {:port http-port}
+  :datomic {:uri "datomic:mem://gallifury-dev"}}}
