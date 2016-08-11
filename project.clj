@@ -14,7 +14,8 @@
                  [ring-webjars "0.1.1"]
                  [org.slf4j/slf4j-nop "1.7.21"]
                  [org.webjars/normalize.css "3.0.2"]
-                 [com.datomic/datomic-free "0.9.5390"]]
+                 [com.datomic/datomic-free "0.9.5390"]
+                 [io.rkn/conformity "0.4.0"]]
   :plugins [[lein-environ "1.0.3"]
             [lein-cljsbuild "1.1.2"]]
   :main ^:skip-aot gallifury.main
