@@ -5,28 +5,27 @@
 
 (def test-uri "datomic:mem://gallifury-datomic-component-test")
 
-;; (def ^:dynamic *conn* nil)
-;; (defn fresh-database []
-;;   (let [db-name (gensym)
-;;         db-uri (str "datomic:mem://" db-name)]
-;;     (datomic/create-database db-uri)
-;;     (datomic/connect db-uri)))
-
-;; (defn database-fixture [f]
-;;   (binding [*conn* (fresh-database)]
-;;     (f)))
+(defn with-started-component
+  "Executes f, providing it the started component. Stops the component afterward."
+  [component f]
+  (let [started-component (.start component)]
+    (f started-component)
+    (.stop started-component)))
 
 (deftest datomic-component-lifecycles
   (let [datomic-cpt (datomic {:uri test-uri})]
 
     (testing "can start"
-      (let [started-cpt (.start datomic-cpt)]
-        (is (= (set (keys started-cpt))
-               #{:conn :config}))
-        (is (some? (datomic.api/db (:conn started-cpt))))))
+      (with-started-component datomic-cpt
+        (fn [started-cpt]
+          (is (= (set (keys started-cpt))
+                 #{:conn :config}))
+          (is (some? (datomic.api/db (:conn started-cpt)))))))
 
     (testing "migrates the db schema on startup"
-      (let [started-cpt (.start datomic-cpt)
-            db (datomic.api/db (:conn started-cpt))]
-        (is (some? (datomic.api/entity db [:db/ident :user/email])))))))
+      (with-started-component datomic-cpt
+        (fn [started-cpt]
+          (let [started-cpt (.start datomic-cpt)
+                db (datomic.api/db (:conn started-cpt))]
+            (is (some? (datomic.api/entity db [:db/ident :user/email])))))))))
 
