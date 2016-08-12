@@ -1,11 +1,13 @@
-{:components {:app  duct.component.handler/handler-component
-              :http ring.component.jetty/jetty-server
+{:components {:app     duct.component.handler/handler-component
+              :http    ring.component.jetty/jetty-server
               :datomic gallifury.component.datomic/datomic}
 
- :endpoints {:example gallifury.endpoint.example/example-endpoint}
+ :endpoints {:example gallifury.endpoint.example/example-endpoint
+             :users   gallifury.endpoint.users/users-endpoint}
 
- :dependencies {:http [:app]
-                :app  [:example]
+ :dependencies {:http    [:app]
+                :app     [:example :users]
+                :users   [:datomic]
                 :example []}
 
  :config
@@ -15,28 +17,33 @@
                 :not-found     duct.middleware.not-found/wrap-not-found
                 :ring-defaults ring.middleware.defaults/wrap-defaults
                 :route-aliases duct.middleware.route-aliases/wrap-route-aliases
-                :webjars       ring.middleware.webjars/wrap-webjars}
+                :webjars       ring.middleware.webjars/wrap-webjars
+                :transit-body  ring.middleware.transit/wrap-transit-body
+                :transit-res   ring.middleware.transit/wrap-transit-response}
 
-    :applied [:not-found :webjars :ring-defaults :route-aliases :hide-errors]
+    :applied [:not-found :webjars :ring-defaults :route-aliases :hide-errors
+              :transit-body :transit-res]
 
     :arguments {:not-found     #resource "gallifury/errors/404.html"
                 :hide-errors   #resource "gallifury/errors/500.html"
                 :route-aliases {"/" "/index.html"}
+                :transit-body  {:keywords? true :opts {}}
+                :transit-res   {:encoding :json-verbose, :opts {}}
                 :ring-defaults {:params    {:urlencoded true
                                             :keywordize true
                                             :multipart  true
                                             :nested     true}
-      :cookies   true
-      :session   {:flash true
-                  :cookie-attrs {:http-only true}}
-      :security  {:anti-forgery   true
-                  :xss-protection {:enable? true, :mode :block}
-                  :frame-options  :sameorigin
-                  :content-type-options :nosniff}
-      :static    {:resources "gallifury/public"}
-      :responses {:not-modified-responses true
-                  :absolute-redirects     true
-                  :content-types          true
-                  :default-charset        "utf-8"}}}}}
-  :http {:port http-port}
+                                :cookies   true
+                                :session   {:flash        true
+                                            :cookie-attrs {:http-only true}}
+                                ;; :security  {:anti-forgery         true
+                                ;;             :xss-protection       {:enable? true, :mode :block}
+                                ;;             :frame-options        :sameorigin
+                                ;;             :content-type-options :nosniff}
+                                :static    {:resources "gallifury/public"}
+                                :responses {:not-modified-responses true
+                                            :absolute-redirects     true
+                                            :content-types          true
+                                            :default-charset        "utf-8"}}}}}
+  :http    {:port http-port}
   :datomic {:uri "datomic:mem://gallifury-dev"}}}

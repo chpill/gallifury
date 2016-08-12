@@ -1,6 +1,6 @@
 (ns gallifury.boundary.user-database
-  (:require datomic.api
-            gallifury.component.datomic)
+  (:require gallifury.component.datomic
+            datomic.api)
   (:import gallifury.component.datomic.Datomic
            java.util.Date))
 
@@ -29,9 +29,8 @@
 
   (find-all-users [datomic-cpt]
     (datomic.api/q
-     '[:find ?e ?email ?name ?created-at
-       :where
-       [?e :user/email ?email]
-       [?e :user/name ?name]
-       [?e :user/created-at ?created-at]]
+     ;; We use the pull syntax here because it forces a shape on our data, so
+     ;; that it is readily serializable by transit
+     '[:find [(pull ?e [:user/email :user/name :user/created-at]) ...]
+       :where [?e :user/email ?email]]
      (datomic.api/db (:conn datomic-cpt)))))

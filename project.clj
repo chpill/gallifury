@@ -3,7 +3,7 @@
   :url "http://example.com/FIXME"
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.183"]
+                 [org.clojure/clojurescript "1.9.225"]
                  [com.stuartsierra/component "0.3.1"]
                  [compojure "1.5.1"]
                  [duct "0.8.0"]
@@ -16,7 +16,8 @@
                  [org.webjars/normalize.css "3.0.2"]
                  [com.datomic/datomic-free "0.9.5390" :exclusions [com.google.guava/guava]]
                  [io.rkn/conformity "0.4.0"]
-                 [clj-time "0.12.0"]]
+                 [clj-time "0.12.0"]
+                 [ring-transit "0.1.6"]]
   :plugins [[lein-environ "1.1.0"]
             [lein-cljsbuild "1.1.3"]]
   :main ^:skip-aot gallifury.main
