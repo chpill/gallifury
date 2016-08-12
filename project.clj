@@ -16,8 +16,8 @@
                  [org.webjars/normalize.css "3.0.2"]
                  [com.datomic/datomic-free "0.9.5390" :exclusions [com.google.guava/guava]]
                  [io.rkn/conformity "0.4.0"]]
-  :plugins [[lein-environ "1.0.3"]
-            [lein-cljsbuild "1.1.2"]]
+  :plugins [[lein-environ "1.1.0"]
+            [lein-cljsbuild "1.1.3"]]
   :main ^:skip-aot gallifury.main
   :target-path "target/%s/"
   :resource-paths ["resources" "target/cljsbuild"]
