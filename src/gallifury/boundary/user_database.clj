@@ -1,5 +1,7 @@
 (ns gallifury.boundary.user-database
-  (:require datomic.api))
+  (:require datomic.api
+            gallifury.component.datomic)
+  (:import gallifury.component.datomic.Datomic))
 
 ;; This will probably not be the way we use the db on http request...
 ;; It would be better to inject the `conn` and `db` value in each request
