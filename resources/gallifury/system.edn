@@ -2,10 +2,12 @@
               :http ring.component.jetty/jetty-server
               :datomic gallifury.component.datomic/datomic}
 
- :endpoints {:example gallifury.endpoint.example/example-endpoint}
+ :endpoints {:example gallifury.endpoint.example/example-endpoint
+             :users   gallifury.endpoint.users/users-endpoint}
 
  :dependencies {:http [:app]
-                :app  [:example]
+                :app  [:example :users]
+                :users [:datomic]
                 :example []}
 
  :config
