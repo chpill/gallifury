@@ -1,5 +1,6 @@
 (ns gallifury.boundary.user-database
-  (:require datomic.api)
+  (:require datomic.api
+            gallifury.component.datomic)
   (:import gallifury.component.datomic.Datomic
            java.util.Date))
 
