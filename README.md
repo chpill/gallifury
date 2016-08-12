@@ -2,6 +2,14 @@
 
 FIXME: description
 
+## TODOs
+
+* [ ] add automatic CI for the project
+      (lots of strange errors with tests in the reloaded workflow...)
+* [ ] add a created-at date into user schema
+* [ ] add middleware to inject db value, db connection and current date into request map
+* [ ] add HTTP CRUD for users
+
 ## Developing
 
 ### Setup
