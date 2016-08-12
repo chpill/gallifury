@@ -1,0 +1,9 @@
+# There is an issue when running lein cljsbuild with trampoline.
+# https://github.com/emezeske/lein-cljsbuild/issues/204
+# As cirle.ci default tests for clojure projects is `lein trampoline test`, we
+#  must override it
+
+test:
+  override:
+    - lein test
+
