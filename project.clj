@@ -15,7 +15,8 @@
                  [org.slf4j/slf4j-nop "1.7.21"]
                  [org.webjars/normalize.css "3.0.2"]
                  [com.datomic/datomic-free "0.9.5390" :exclusions [com.google.guava/guava]]
-                 [io.rkn/conformity "0.4.0"]]
+                 [io.rkn/conformity "0.4.0"]
+                 [clj-time "0.12.0"]]
   :plugins [[lein-environ "1.1.0"]
             [lein-cljsbuild "1.1.3"]]
   :main ^:skip-aot gallifury.main
