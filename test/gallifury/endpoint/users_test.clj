@@ -15,7 +15,9 @@
               (is (= (:body res) []))))
           (testing "'POST /users creates a user"
             (let [res (handler {:request-method :post
-                                :uri "/users"})]
+                                :uri "/users"
+                                :body {:user/name "bob"
+                                 :user/email "bob@example.com"}})]
               (is (= (:status res) 200))))
           (testing "'GET /users' now returns the created user"
             (let [res (handler {:request-method :get

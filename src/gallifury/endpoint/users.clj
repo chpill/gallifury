@@ -20,5 +20,4 @@
        (fn [req]
          @(users-db/create-user!
           datomic
-          {:user/name "bob"
-           :user/email "bob@example.com"}))))))
+          (:body req)))))))
